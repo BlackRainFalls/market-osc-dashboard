@@ -88,18 +88,31 @@ refresh = st.sidebar.button("Manual Refresh")
 @st.cache_data(ttl=60) 
 def fetch_data(ticker, period, interval):
     data = yf.download(ticker, period=period, interval=interval)
+    if data.empty:
+        return data
+    # Force column headers to be standard flat strings ('Close', 'Open', etc.)
     if isinstance(data.columns, pd.MultiIndex):
         data.columns = data.columns.get_level_values(0)
+    data.columns = [str(col).strip() for col in data.columns]
     return data
 
 @st.cache_data(ttl=300)
 def fetch_breadth_data(period, interval):
     rsp = yf.download("RSP", period=period, interval=interval)
     spy = yf.download("SPY", period=period, interval=interval)
-    if isinstance(rsp.columns, pd.MultiIndex):
-        rsp.columns = rsp.columns.get_level_values(0)
-    if isinstance(spy.columns, pd.MultiIndex):
-        spy.columns = spy.columns.get_level_values(0)
+    
+    # Clean RSP columns
+    if not rsp.empty:
+        if isinstance(rsp.columns, pd.MultiIndex):
+            rsp.columns = rsp.columns.get_level_values(0)
+        rsp.columns = [str(col).strip() for col in rsp.columns]
+        
+    # Clean SPY columns
+    if not spy.empty:
+        if isinstance(spy.columns, pd.MultiIndex):
+            spy.columns = spy.columns.get_level_values(0)
+        spy.columns = [str(col).strip() for col in spy.columns]
+        
     return rsp, spy
 
 def calculate_osc(df, fast, slow, signal):
