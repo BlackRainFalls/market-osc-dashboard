@@ -247,7 +247,7 @@ if not raw_df.empty:
             """
             <div style="text-align: right; margin-top: 10px;">
                 <span style="color: #888888; font-size: 14px;">📊 Find this macro view useful? </span>
-                <a href="https://share.streamlit.io/" target="_blank" style="color: #26a69a; text-decoration: none; font-weight: bold; font-size: 14px;">
+                <a href="https://market-osc.streamlit.app/" target="_blank" style="color: #26a69a; text-decoration: none; font-weight: bold; font-size: 14px;">
                     Share the Live Dashboard Link
                 </a>
             </div>
