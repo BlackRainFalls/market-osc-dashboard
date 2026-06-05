@@ -8,6 +8,32 @@ from plotly.subplots import make_subplots
 st.set_page_config(page_title="Market OSC Indicator", layout="wide")
 st.title("📈 Market OSC Indicator")
 
+# FIX: Robust Plotly modebar visibility adjustment for light/dark mode mixing
+st.markdown(
+    """
+    <style>
+    /* Force visibility on all Plotly modebar paths regardless of theme */
+    div[data-testid="stPlotlyChart"] .modebar-btn svg path {
+        fill: #555555 !important;
+        opacity: 0.7 !important;
+    }
+    
+    /* Give it your signature high-visibility pink on hover */
+    div[data-testid="stPlotlyChart"] .modebar-btn:hover svg path {
+        fill: #ff007f !important;
+        opacity: 1.0 !important;
+    }
+    
+    /* Optional: Give the background of the vertical modebar a slight background tint on hover */
+    div[data-testid="stPlotlyChart"] .modebar-btn:hover {
+        background-color: rgba(0, 0, 0, 0.05) !important;
+        border-radius: 4px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Sidebar for controls
 st.sidebar.header("Settings")
 
