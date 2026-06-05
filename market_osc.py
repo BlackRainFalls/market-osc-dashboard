@@ -193,7 +193,7 @@ if not raw_df.empty:
                                      name="RS vs S&P 500"), row=2, col=1)
         if has_active_rs_ndx:
             fig.add_trace(go.Scatter(x=df.index, y=df['RS_NDX_Ratio'], 
-                                     line=dict(color='#00b0ff', width=1.5), # Cyan line for tech benchmark comparison
+                                     line=dict(color='#00b0ff', width=1.5), 
                                      name="RS vs Nasdaq 100"), row=2, col=1)
         fig.update_yaxes(title_text="RS Ratio", row=2, col=1)
         osc_row = 3
@@ -201,7 +201,9 @@ if not raw_df.empty:
     # PANEL 3 (or 2): Market OSC Pane
     osc_colors = ['#26a69a' if val > 0 else '#ef5350' for val in df['OSC_Hist']]
     fig.add_trace(go.Bar(x=df.index, y=df['OSC_Hist'], name="OSC Histogram", marker_color=osc_colors), row=osc_row, col=1)
-    fig.add_trace(go.Scatter(x=df.index, y=df['OSC_Line'], line=dict(color='white', width=1.5), name="OSC Line"), row=osc_row, col=1)
+    
+    # UPDATED: Changed line color to high-visibility pink ('#ff007f') for light-mode readability
+    fig.add_trace(go.Scatter(x=df.index, y=df['OSC_Line'], line=dict(color='#ff007f', width=1.5), name="OSC Line"), row=osc_row, col=1)
     fig.add_trace(go.Scatter(x=df.index, y=df['OSC_Signal'], line=dict(color='orange', width=1, dash='dot'), name="Signal"), row=osc_row, col=1)
 
     # OSC Overbought/Oversold Threshold Guardrails
